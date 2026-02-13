@@ -36,9 +36,45 @@ import { createAuthorization } from '../../util/integration/create-authorization
 import sleep from '../../util/sleep';
 import { fetchAuthorization } from '../../util/integration/fetch-authorization';
 
-export type AddOptions = PostProvisionOptions;
+import type { addSubcommand } from './command';
 
-export async function add(
+type AddOptions = PostProvisionOptions;
+
+type FlagType<T> = T extends readonly [StringConstructor]
+  ? string[]
+  : T extends StringConstructor
+    ? string
+    : T extends BooleanConstructor
+      ? boolean
+      : T extends NumberConstructor
+        ? number
+        : never;
+
+type AddFromFlagsInput = {
+  [K in (typeof addSubcommand.options)[number] as `--${K['name']}`]?: FlagType<
+    K['type']
+  >;
+};
+
+export async function addFromFlags(
+  client: Client,
+  args: string[],
+  flags: AddFromFlagsInput
+) {
+  return add(
+    client,
+    args,
+    flags['--name'],
+    flags['--metadata'],
+    flags['--plan'],
+    {
+      noConnect: flags['--no-connect'],
+      noEnvPull: flags['--no-env-pull'],
+    }
+  );
+}
+
+async function add(
   client: Client,
   args: string[],
   resourceNameArg?: string,

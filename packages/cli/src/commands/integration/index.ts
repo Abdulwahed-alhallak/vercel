@@ -8,7 +8,7 @@ import getInvalidSubcommand from '../../util/get-invalid-subcommand';
 import getSubcommand from '../../util/get-subcommand';
 import { IntegrationTelemetryClient } from '../../util/telemetry/commands/integration';
 import { type Command, help } from '../help';
-import { add } from './add';
+import { addFromFlags } from './add';
 import { balance } from './balance';
 import {
   addSubcommand,
@@ -159,29 +159,7 @@ export default async function main(client: Client) {
         printError(error);
         return 1;
       }
-      const resourceName = addParsedArgs.flags['--name'] as string | undefined;
-      const metadataFlags = addParsedArgs.flags['--metadata'] as
-        | string[]
-        | undefined;
-      const billingPlanId = addParsedArgs.flags['--plan'] as string | undefined;
-      const noConnect = addParsedArgs.flags['--no-connect'] as
-        | boolean
-        | undefined;
-      const noEnvPull = addParsedArgs.flags['--no-env-pull'] as
-        | boolean
-        | undefined;
-
-      return add(
-        client,
-        addParsedArgs.args,
-        resourceName,
-        metadataFlags,
-        billingPlanId,
-        {
-          noConnect,
-          noEnvPull,
-        }
-      );
+      return addFromFlags(client, addParsedArgs.args, addParsedArgs.flags);
     }
     case 'list': {
       if (needHelp) {
