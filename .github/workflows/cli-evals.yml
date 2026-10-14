@@ -1,10 +1,7 @@
 name: CLI Evals
 
 on:
-  pull_request:
-    paths:
-      - 'packages/cli/**'
-
+  workflow_dispatch:
 jobs:
   evals:
     runs-on: ubuntu-latest
