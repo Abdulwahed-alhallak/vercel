@@ -1,12 +1,6 @@
 name: Release Rust Crates
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'crates/vercel_runtime/**'
-      - 'Cargo.toml'
-      - 'Cargo.lock'
   workflow_dispatch:
 jobs:
   publish:
