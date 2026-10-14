@@ -1,10 +1,7 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
-
+  workflow_dispatch:
 env:
   TURBO_REMOTE_ONLY: 'true'
   TURBO_TEAM: 'vercel'
