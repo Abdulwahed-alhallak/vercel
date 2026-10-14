@@ -1,12 +1,7 @@
 name: Prebuild Next.js Example
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
-    inputs:
-
 jobs:
   clone-build-deploy:
     runs-on: ubuntu-latest
