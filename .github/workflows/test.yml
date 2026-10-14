@@ -1,8 +1,7 @@
 name: Unit Tests
 
 on:
-  pull_request:
-
+  workflow_dispatch:
 env:
   VERCEL_TELEMETRY_DISABLED: '1'
   TURBO_REMOTE_ONLY: 'true'
